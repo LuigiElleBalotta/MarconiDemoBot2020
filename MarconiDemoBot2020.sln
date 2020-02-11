@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarconiDemoBot2020", "MarconiDemoBot2020\MarconiDemoBot2020.csproj", "{A2A80B79-6DF8-4706-90DD-C2692EBE462A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A2A80B79-6DF8-4706-90DD-C2692EBE462A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2A80B79-6DF8-4706-90DD-C2692EBE462A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2A80B79-6DF8-4706-90DD-C2692EBE462A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2A80B79-6DF8-4706-90DD-C2692EBE462A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {20BB15E1-386D-4236-8E5E-7DAA994AB65C}
+	EndGlobalSection
+EndGlobal
