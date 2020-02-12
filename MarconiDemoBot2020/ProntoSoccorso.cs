@@ -4,14 +4,14 @@
     {
         public string Nome { get; set; }
 
-        public string UnitàOperativa { get; set; }
+        public string Codice { get; set; }
 
         public Attesa Attesa { get; set; }
 
-        public ProntoSoccorso(string nome, string unitàOperativa, Attesa attesa)
+        public ProntoSoccorso(string nome, string codice, Attesa attesa)
         {
             Nome = nome;
-            UnitàOperativa = unitàOperativa;
+            Codice = codice;
             Attesa = attesa;
         }
     }

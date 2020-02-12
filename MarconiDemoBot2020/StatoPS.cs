@@ -15,7 +15,7 @@ namespace MarconiDemoBot2020
             IEnumerable<ProntoSoccorso> list = doc.Root.Elements("PRONTO_SOCCORSO").Select(x =>
             {
                 string nome = x.Element("PS").Value;
-                string uo = x.Element("UNITA_OPERATIVA").Value;
+                string codice = x.Element("COD_PS_OD").Value;
 
                 XElement attesaEl = x.Element("ATTESA");
 
@@ -27,7 +27,7 @@ namespace MarconiDemoBot2020
                     Rosso = int.Parse(attesaEl.Element("ROSSO").Value),
                 };
 
-                return new ProntoSoccorso(nome, uo, attesa);
+                return new ProntoSoccorso(nome, codice, attesa);
             });
 
             return list;

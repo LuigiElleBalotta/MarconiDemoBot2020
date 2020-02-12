@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Telegram.Bot;
+using Telegram.Bot.Exceptions;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace MarconiDemoBot2020
@@ -15,6 +16,7 @@ namespace MarconiDemoBot2020
             this.client = new TelegramBotClient("");
 
             this.client.OnMessage += Client_OnMessage;
+            this.client.OnCallbackQuery += Client_OnCallbackQuery;
             this.client.StartReceiving();
         }
 
@@ -56,12 +58,59 @@ namespace MarconiDemoBot2020
                     text += $"🟡 {ps.Attesa.Giallo} in attesa\n";
                     text += $"🔴 {ps.Attesa.Rosso} in attesa\n";
 
+                    IReplyMarkup replyMarkup = new InlineKeyboardMarkup(
+                        InlineKeyboardButton.WithCallbackData(
+                            "🔄 Aggiorna", ps.Codice
+                        )
+                    );
+
                     await this.client.SendTextMessageAsync(
                         chatId,
-                        text
+                        text,
+                        replyMarkup: replyMarkup
                     );
                 }
             }
+        }
+
+        private async void Client_OnCallbackQuery(object sender, Telegram.Bot.Args.CallbackQueryEventArgs e)
+        {
+            string codice = e.CallbackQuery.Data;
+
+            StatoPS stato = new StatoPS();
+            IEnumerable<ProntoSoccorso> lista = stato.Lista();
+
+            ProntoSoccorso ps = lista.FirstOrDefault(x => x.Codice == codice);
+
+            string text = $"{ps.Nome}\n\n";
+            text += $"⚪ {ps.Attesa.Bianco} in attesa\n";
+            text += $"🟢 {ps.Attesa.Verde} in attesa\n";
+            text += $"🟡 {ps.Attesa.Giallo} in attesa\n";
+            text += $"🔴 {ps.Attesa.Rosso} in attesa";
+
+            InlineKeyboardMarkup replyMarkup = new InlineKeyboardMarkup(
+                InlineKeyboardButton.WithCallbackData(
+                    "🔄 Aggiorna", ps.Codice
+                )
+            );
+
+            try
+            {
+                await this.client.EditMessageTextAsync(
+                    e.CallbackQuery.Message.Chat.Id,
+                    e.CallbackQuery.Message.MessageId,
+                    text,
+                    replyMarkup: replyMarkup
+                );
+            }
+            catch (MessageIsNotModifiedException)
+            {
+            }
+
+            await this.client.AnswerCallbackQueryAsync(
+                e.CallbackQuery.Id,
+                "✅ Aggiornato"
+            );
         }
     }
 }
